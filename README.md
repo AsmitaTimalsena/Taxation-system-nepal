@@ -9,10 +9,10 @@ This project is proudly developed by:
 
 | Member Name | GitHub |
 | :--- | :--- |
-| [Anuja] | [@github-handle] |
-| [Aishwarya]| [@github-handle] |
-| [Anuska]| [@github-handle] |
-| [Asmita]| [@github-handle] |
+| [Aishwarya Pokharel] | [https://github.com/Aiswarya-Pokharel] |
+| [Anuja Khatri]| [https://github.com/Anujakhatri] |
+| [Anuska Bhandari]| [https://github.com/anuskabhandari] |
+| [Asmita Timalsena]| [https://github.com/AsmitaTimalsena] |
 
 ---
 *Developed as part of our academic/professional initiative to improve digital governance in Nepal.*
