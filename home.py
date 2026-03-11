@@ -21,8 +21,7 @@ else:
     tax = 0
     print("Invalid salary! Tax cannot be calculated.")
 
-
-#****** TASK 4 BY ASMITA ******#
+#*************** Task-4- Asmita *******************
 print("-------------------TAXATION SYSTEM OF NEPAL-------------------")
 emp_name = []
 emp_salary = []
