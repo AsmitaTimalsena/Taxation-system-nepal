@@ -1,29 +1,55 @@
-#*************** Task-1- Aishwarya *******************
+print("----------------Welcome to the Taxation System---------------------")
 
-name = input("Enter your name: ")
-salary = int(input("Enter your monthly salary: "))
+set_pan = set()
+employee_records = {}
 
-print("***** Employee Details *****")
-print("Name:", name)
-print("Monthly Salary:", salary)
+while True:
+##########################  Anuja Task ##########################"
+    print("Enter employee details:")
+    name = input("Name: ")
+    salary = float(input("Monthly Salary: "))
+    allowance = float(input("Allowances: "))
+    deductions = float(input("Deductions: "))
+    pan_number = input("PAN Number: ")
 
-#*************** Task-2- Anuja *******************
-print(type(salary))
-salary = float(salary)
-print(type(salary))
+    while pan_number in set_pan:
+        print("PAN already exists. Enter again.")
+        pan_number = input("PAN Number: ")
+    set_pan.add(pan_number)
+           
+  ##########################  Anuska Task ##########################"  
+    employee_records[name] = [salary, allowance, deductions, pan_number]
 
-#*************** Task-3- Anuska *******************
-# Calculate tax using if statement
-if salary > 0:
-    tax = salary * 0.10
-    print("Tax amount is:", tax)
-else:
-    tax = 0
-    print("Invalid salary! Tax cannot be calculated.")
+    choice = input("Do you want to add more employee records? (yes/no): ")
+    if choice.lower() != 'yes':
+        break
 
-#*************** Task-4- Asmita *******************
+tax_slabs = (
+    (0, 50000, 0.01),
+    (50000, 100000, 0.10),
+    (100000, float('inf'), 0.20)
+)
+##########################  Aiswarya's Task ##########################"
+def calculate_tax(income):
+    if income <= tax_slabs[0][1]:
+        tax = income * tax_slabs[0][2]
+        
+    elif income <= tax_slabs[1][1]:
+        tax = income * tax_slabs[1][2]
+              
+    else:
+        tax = income * tax_slabs[2][2]
+    
+    return tax
 
+##########################  Asmita's Task ##########################"  
 print("\n-------------------TAXATION Report-------------------")
-print("Employee Name\tEmployee Salary\tTax Amount")
+print("Employee Name\tEmployee Salary\tAllowances\tDeductions\tPAN Number\tTax Amount\tFinal Salary")
 
-print(name,"\t\t",salary,"\t\t",tax)
+for name, details in employee_records.items():
+    salary, allowance, deductions, pan_number = details
+    taxable_income = salary + allowance - deductions
+    tax_amount = calculate_tax(taxable_income)
+    final_salary = taxable_income - tax_amount
+
+    print(f"{name}\t\t{salary}\t\t{allowance}\t\t{deductions}\t\t{pan_number}\t\t{tax_amount:.2f}\t\t{final_salary:.2f}")
