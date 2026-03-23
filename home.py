@@ -60,8 +60,7 @@ class TaxReport:
         slab_count = {"low": 0, "mid": 0, "high": 0}
         highest_tax = 0
         highest_taxpayer = ""
-        seen_pans = set()
-        duplicate_pans = set()
+        
     # ------------------- End Anuska Task -------------------
 
         for name, details in employee_records.items():
@@ -84,11 +83,7 @@ class TaxReport:
             else:
                 slab_count["high"] += 1
 
-            # Detect duplicate PANs
-            if pan_number in seen_pans:
-                duplicate_pans.add(pan_number)
-            else:
-                seen_pans.add(pan_number)
+           
             # ------------------- End Anusk Task -------------------
 
             print(f"{name}\t\t{salary}\t\t{allowance}\t\t{deductions}\t\t{pan_number}\t\t{tax_amount:.2f}\t\t{final_salary:.2f}")
@@ -96,7 +91,7 @@ class TaxReport:
         print("\n--- Summary ---")
         print(f"Highest Taxpayer: {highest_taxpayer} (Tax: {highest_tax:.2f})")
         print(f"Employees per Tax Slab: {slab_count}")
-        print(f"Duplicate PANs: {duplicate_pans if duplicate_pans else 'None'}")
+      
 
 #main execution
 emp_obj = EmployeeDetails()
