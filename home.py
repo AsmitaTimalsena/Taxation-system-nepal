@@ -117,14 +117,9 @@ emp_obj.update_employee()
 
 
 
-
-
-'''
------------------Guys you can continus from this--------
-
+########################## Anuja Task ##########################"
 
 class CalculateTax:
-    ########################## Task ##########################"
     tax_slabs = (
     (0, 50000, 0.01),
     (50000, 100000, 0.10),
@@ -143,50 +138,49 @@ class CalculateTax:
         
         return tax
 
-##########################   Task ##########################"  
 class TaxReport:
-    def display_report(self, employee_records):
+    def display_report(self):
         print("\n-------------------TAXATION Report-------------------")
         print("Employee Name\tEmployee Salary\tAllowances\tDeductions\tPAN Number\tTax Amount\tFinal Salary")
 
-         # ------------------- Anuska Task -------------------
         slab_count = {"low": 0, "mid": 0, "high": 0}
         highest_tax = 0
         highest_taxpayer = ""
         
-    # -------------------  Task -------------------
+        try:
+            with conn:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT name, salary, allowance, deductions, pan_number FROM employees")
+                    records = cur.fetchall()
+                    
+                    for record in records:
+                        name, salary, allowance, deductions, pan_number = record
+                        taxable_income = salary + allowance - deductions
+                        tax_amount = CalculateTax.calculate_tax(taxable_income)
+                        final_salary = taxable_income - tax_amount
 
-        for name, details in employee_records.items():
-            salary, allowance, deductions, pan_number = details
-            taxable_income = salary + allowance - deductions
-            tax_amount = CalculateTax.calculate_tax(taxable_income)
-            final_salary = taxable_income - tax_amount
+                        # Highest taxpayer
+                        if tax_amount > highest_tax:
+                            highest_tax = tax_amount
+                            highest_taxpayer = name
 
-                # ------------------- Anuska Task -------------------
-            # Highest taxpayer
-            if tax_amount > highest_tax:
-                highest_tax = tax_amount
-                highest_taxpayer = name
+                        # Count employees per tax slab
+                        if taxable_income <= 50000:
+                            slab_count["low"] += 1
+                        elif taxable_income <= 100000:
+                            slab_count["mid"] += 1
+                        else:
+                            slab_count["high"] += 1
 
-            # Count employees per tax slab
-            if taxable_income <= 50000:
-                slab_count["low"] += 1
-            elif taxable_income <= 100000:
-                slab_count["mid"] += 1
-            else:
-                slab_count["high"] += 1
+                        print(f"{name}\t\t{salary}\t\t{allowance}\t\t{deductions}\t\t{pan_number}\t\t{tax_amount:.2f}\t\t{final_salary:.2f}")
 
-           
-            # -------------------  Task -------------------
+        except Exception as e:
+            print("Error generating report:", e)
 
-            print(f"{name}\t\t{salary}\t\t{allowance}\t\t{deductions}\t\t{pan_number}\t\t{tax_amount:.2f}\t\t{final_salary:.2f}")
-        ## Anuska Task
         print("\n--- Summary ---")
         print(f"Highest Taxpayer: {highest_taxpayer} (Tax: {highest_tax:.2f})")
         print(f"Employees per Tax Slab: {slab_count}")
-      
 
 
 report = TaxReport()
-report.display_report(emp_obj.employee_records)
-'''
+report.display_report()
